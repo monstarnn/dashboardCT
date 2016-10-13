@@ -160,3 +160,10 @@ gulp.task('build-watch', function (cb) {
         'watch',
         cb);
 });
+
+gulp.task('test-n-build', function(cb){
+    runSequence(
+        'test',
+        'build',
+        cb);
+});

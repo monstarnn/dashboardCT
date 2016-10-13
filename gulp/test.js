@@ -89,19 +89,19 @@ function runFrontendUnitTests(singleRun, doneFn) {
 /**
  * Runs once all unit tests of the frontend application.
  */
+// gulp.task('test', ['test-build'], function(doneFn) {
+//     runFrontendUnitTests(true, doneFn);
+// });
+//
+// gulp.task('test-debug', ['test-build'], function(doneFn) {
+//     runFrontendUnitTests(false, doneFn);
+// });
+
 gulp.task('test', ['test-build'], function(doneFn) {
     runFrontendUnitTests(true, doneFn);
 });
 
 gulp.task('test-debug', ['test-build'], function(doneFn) {
-    runFrontendUnitTests(false, doneFn);
-});
-
-gulp.task('test-2', ['test-build-2'], function(doneFn) {
-    runFrontendUnitTests(true, doneFn);
-});
-
-gulp.task('test-debug-2', ['test-build-2'], function(doneFn) {
     runFrontendUnitTests(false, doneFn);
 });
 
@@ -162,44 +162,45 @@ gulp.task('test-debug-2', ['test-build-2'], function(doneFn) {
 // gulp.task('webdriver-update', gulpProtractor.webdriver_update);
 
 
-gulp.task('test-build', ['test-concat'], function() {
-    var opts = {
-        debug: false, //option.debug,
-        entries: destPathName + '/test/test.js', //option.entryPoint,
-        ignoreWatch: ['**/node_modules/**', '**/bower_components/**', '**/bower_modules/**'],
-        poll: true
-    };
-    // bfy = browserify(opts);
-    // gulp.src(appDir + '/test/**/*.js')
-    //     .pipe(concat('test.js'))
-    //     .pipe(gulp.dest(config.destPathName + '/test'));
+//
+// gulp.task('test-build-old', ['test-concat'], function() {
+//     var opts = {
+//         debug: false, //option.debug,
+//         entries: destPathName + '/test/test.js', //option.entryPoint,
+//         ignoreWatch: ['**/node_modules/**', '**/bower_components/**', '**/bower_modules/**'],
+//         poll: true
+//     };
+//     // bfy = browserify(opts);
+//     // gulp.src(appDir + '/test/**/*.js')
+//     //     .pipe(concat('test.js'))
+//     //     .pipe(gulp.dest(config.destPathName + '/test'));
+//
+//     return browserify(opts)
+//         .transform(babelify, {
+//             presets: ['es2015']
+//         })
+//         .bundle()
+//         .on('error', error)
+//         .pipe(source('test.js'))
+//         .pipe(buffer())
+//         // .pipe(gIf(option.map, sourcemaps.init({loadMaps: true, addComment: false})))
+//         // .pipe(gIf(option.minify, uglify(option.bundleNameMin, {
+//         //   outSourceMap: option.map
+//         // })))
+//         // .pipe(gIf(option.map, sourcemaps.write('./')))
+//         // .pipe(sourcemaps.init({loadMaps: true, addComment: false}))
+//         // .pipe(sourcemaps.write('./'))
+//         .pipe(gulp.dest(destPathName + '/test'));
+//
+// });
+//
+// gulp.task('test-concat', function(){
+//     return gulp.src(appDir + '/test/**/*.js')
+//         .pipe(concat('test.js'))
+//         .pipe(gulp.dest(destPathName + '/test'));
+// });
 
-    return browserify(opts)
-        .transform(babelify, {
-            presets: ['es2015']
-        })
-        .bundle()
-        .on('error', error)
-        .pipe(source('test.js'))
-        .pipe(buffer())
-        // .pipe(gIf(option.map, sourcemaps.init({loadMaps: true, addComment: false})))
-        // .pipe(gIf(option.minify, uglify(option.bundleNameMin, {
-        //   outSourceMap: option.map
-        // })))
-        // .pipe(gIf(option.map, sourcemaps.write('./')))
-        // .pipe(sourcemaps.init({loadMaps: true, addComment: false}))
-        // .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest(destPathName + '/test'));
-
-});
-
-gulp.task('test-concat', function(){
-    return gulp.src(appDir + '/test/**/*.js')
-        .pipe(concat('test.js'))
-        .pipe(gulp.dest(destPathName + '/test'));
-});
-
-gulp.task('test-clean', del.bind(null, [destDir + '/test'], {force: true}));
+// gulp.task('test-clean', del.bind(null, [destDir + '/test'], {force: true}));
 
 function error(a){
     gutil.log('ES6 TEST ERROR!'.red, a.toString().red);
@@ -209,7 +210,7 @@ var es = require('event-stream');
 var glob = require('glob');
 var rename = require('gulp-rename');
 
-gulp.task('test-build-2', function (done) {
+gulp.task('test-build', function (done) {
     // var files = [appDir + '/test/**/*.js'];
     glob(appDir + '/test/**/*.js', function(err, files) {
         if(err) done(err);

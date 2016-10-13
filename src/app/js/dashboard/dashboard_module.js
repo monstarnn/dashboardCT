@@ -4,7 +4,7 @@ import Projects from './projects/projects_module'
 import mockApi from '../mock/mock_api';
 import Templates from '../core/templates'
 // import ApiService from '../core/api_service'
-import {ApiPath} from './environment/environment_state'
+
 // import {CoreResource} from '../core/resource'
 
 var dashboard = angular
@@ -15,7 +15,7 @@ var dashboard = angular
         Catalog.name,
         Projects.name
     ])
-    .value('ApiPath', ApiPath)
+    ;
     // .service('ApiResource', CoreResource)
     // .service('ApiService', ApiService);
 

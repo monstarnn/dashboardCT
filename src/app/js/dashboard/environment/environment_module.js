@@ -4,6 +4,8 @@ import Group from './group/group_module.js'
 import User from './user/user_module'
 import  Nav from './nav/nav_module'
 import Templates from '../../core/templates'
+import Core from './../../core/module'
+import {ApiPath} from './../environment/environment_state'
 
 export default angular
     .module('dashboard.environment',
@@ -12,8 +14,11 @@ export default angular
             Templates.name,
             Group.name,
             User.name,
-            Nav.name
+            Nav.name,
+            Core.name
         ]
     )
     .config(stateConfig)
-    .component('mctEnv', layoutComponent);
+    .component('mctEnv', layoutComponent)
+    .value('ApiPath', ApiPath)
+;
