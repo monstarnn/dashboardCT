@@ -1,0 +1,9 @@
+<h1>Catalog</h1>
+<catalog-list class="catalog-list">
+ <catalog-list-container ng-if="$ctrl.isSet()" class="row">
+    <mct-catalog-list-item class="col-sm-6 col-md-4"
+                           ng-repeat="catalogItem in $ctrl.catalogList"
+                           catalog-item="catalogItem"
+    </mct-catalog-list-item>
+ </catalog-list-container>
+</catalog-list>

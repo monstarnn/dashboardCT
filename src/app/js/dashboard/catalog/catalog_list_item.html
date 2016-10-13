@@ -1,0 +1,19 @@
+<div class="thumbnail">
+  <img ng-src="{{$ctrl.catalogItem.icoUrl}}" alt="{{$ctrl.catalogItem.Name}}" class="catalog-icon">
+  <div class="caption">
+   <h4>{{$ctrl.catalogItem.Name}}</h4>
+   <p class="description">{{$ctrl.catalogItem.Description}}</p>
+   <dl>
+    <dt>Categoty</dt> <dd>{{$ctrl.catalogItem.Category}}</dd>
+    <dt>Provider</dt> <dd>{{$ctrl.catalogItem.Provider}}</dd>
+    <dt>Version</dt> <dd>{{$ctrl.catalogItem.Version}}</dd>
+   </dl>
+   <dl class="keywords">
+    <dt>Keywords</dt>
+    <dd><span ng-repeat="k in $ctrl.Keywords()">{{k}}</span></dd>
+   </dl>
+   <div class="button">
+    <button type="button" class="btn btn-primary" ng-click="$ctrl.add()">Add to project</button>
+   </div>
+  </div>
+</div>
