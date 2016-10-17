@@ -13,6 +13,19 @@ export class CatalogListController {
     isSet(){
         return this.catalogList.length;
     }
+    add(){
+        debugger;
+        var data = {Name : "add"};
+        var _this = this;
+        this.apiResourceCatalog.save(
+            data,
+            (function (r) {
+                debugger;
+                console.log(this, _this, data)
+            }).bind(this))
+            .$promise
+
+    }
 }
 
 export const catalogListComponent = {

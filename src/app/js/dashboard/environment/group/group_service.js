@@ -20,18 +20,15 @@ export class GroupService {
         
         
         
-        debugger;
+        // debugger;
         if(!this.initDefer) {
             this.initDefer = this.getList();
             this.initDefer.then((res) => {
-                debugger;
                 this.groups = res;
                 // this.initDefer.resolve(res);
             }).catch((err) => {
-                debugger;
                 // this.initDefer.reject(err);
             }).finally(() => {
-                debugger;
             });
             // this.initDefer = this._q.defer();
             // this.getList().then((res) => {
@@ -69,7 +66,6 @@ export class GroupService {
     }
 
     getList (){
-        debugger;
         return this.api.get("groups");
     }
 }

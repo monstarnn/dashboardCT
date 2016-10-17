@@ -1,6 +1,7 @@
 import Environment from './environment/environment_module.js';
 import Catalog from './catalog/catalog_module'
 import Projects from './projects/projects_module'
+import ProjectDeteil from './project_deteil/project_deleil_module'
 import mockApi from '../mock/mock_api';
 import Templates from '../core/templates'
 // import ApiService from '../core/api_service'
@@ -13,7 +14,8 @@ var dashboard = angular
         Templates.name,
         Environment.name,
         Catalog.name,
-        Projects.name
+        Projects.name,
+        ProjectDeteil.name
     ])
     ;
     // .service('ApiResource', CoreResource)

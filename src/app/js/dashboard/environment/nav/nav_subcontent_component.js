@@ -7,7 +7,7 @@ export class SubContentController {
         // this.scope = $scope;
         this.menuItem = [
             {Title : 'Catalog', link: 'Group.Catalog'},
-            {Title : 'Projects', link: 'Group.Projects'}
+            {Title : 'Projects', link: 'Group.Projects', subMenu : { template : '<mct-projects-menu-list></mct-projects-menu-list>'}}
         ];
         // this.init();
     }

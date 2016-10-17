@@ -1,3 +1,6 @@
 <ul class="nav nav-sidebar">
-    <li ng-repeat="value in ::$ctrl.menuItem" ui-sref-active="active"><a ui-sref="{{value.link}}" >{{value.Title}}</a></li>
+    <li ng-repeat="value in ::$ctrl.menuItem" ui-sref-active="active">
+        <a ui-sref="{{value.link}}" >{{value.Title}}</a>
+    </li>
 </ul>
+<mct-projects-menu-list></mct-projects-menu-list>

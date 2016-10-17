@@ -1,23 +1,24 @@
 /**
  * Created by ilja on 10.10.16.
  */
+import ProjectController from './projects_controller'
 export  default function ($stateProvider, $urlRouterProvider) {
     $stateProvider
-        .state('Group.Projects', {
+        .state('Projects', {
             parent: "Group",
             url: '/projects',
-            // resolve : {
-            //     projectList : getProjectslist
-            // },
             views: {
                 "": {
-                    template: '<mct-project></mct-project>'
-                }
+                    template: `<div class="btn" ng-click="$ctrl.add()">add</div>
+                                <mct-projects-list 
+                                    api-request-projects="$ctrl.apiRecourceProjects"
+                                    projects-list="$ctrl.projectsList"
+                                    ></mct-projects-list>`,
+                    controller: ProjectController,
+                    controllerAs: '$ctrl'
+                },
+
             }
         })
 }
 
-function getProjectslist (ApiResourceProjects) {
-    debugger;
-    return ApiResourceProjects.query().$promise;
-}

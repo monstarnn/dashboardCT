@@ -26,6 +26,10 @@ export default function (app) {
                     return [200, apiData[uri]];
                 }
             );
+            $httpBackend.whenPOST(apiPath + uri).respond((methid, path, data) => {
+                debugger;
+                return [200, _.extend({ID:_.now()}, JSON.parse(data))];
+            })
         }, this);
 
 
