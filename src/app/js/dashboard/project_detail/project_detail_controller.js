@@ -5,19 +5,21 @@
 
 export default class ProjectDetailController {
     constructor (projectDetail, ApiResourceProjects, $state){
-        debugger
+        debugger;
         this.state = $state;
         this.projectDetail = projectDetail;
         this.apiResourceProjects = ApiResourceProjects;
-        this.apiResourceProjects.scope.$on('change', () => {
+        this.apiResourceProjects.scope.$on('change', (event, data) => {
+            console.log(event, data);
             debugger
         });
     }
     add () {
-        debugger;
-        this.apiResourceProjects.add({Name: "NamePr_" + _.now()}).then((r)=>{
-            debugger;
-            this.state.go(`ProjectDetail({projectID : ${res.ID})`);
+
+        return this.apiResourceProjects.add({Name: "NamePr_" + _.now()}).then((r)=>{
+            // debugger;
+
+            this.state.go(`ProjectDetail({projectID : ${r.ID})`);
         });
     }
 
