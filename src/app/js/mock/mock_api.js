@@ -33,7 +33,10 @@ export default function (app) {
                     var mockId = url.match(regexp)[1];
                     debugger
                     var data = _.findWhere(apiData[uri], {ID : mockId});
-                    return [200, _.extend({fullData : true}, data)];
+                    if(data)
+                        return [200, _.extend({fullData : true}, data)];
+                    else
+                        return [404, "not found"];
                 }
             );
 
@@ -52,11 +55,11 @@ export default function (app) {
             $httpBackend.whenDELETE(apiPath + uri).respond((methid, path, data) => {
                 debugger;
                 return [200, _.extend({ID:_.now()}, JSON.parse(data))];
-            })
+            });
 
             $httpBackend.whenPOST(apiPath + uri).respond((methid, path, data) => {
                 debugger;
-                return [200, _.extend({ID:_.now()}, JSON.parse(data))];
+                return [200, _.extend({ID:_.now()+"_"}, JSON.parse(data))];
             })
         }, this);
 
