@@ -21,12 +21,35 @@ export default class {
     get(path){
         let deferred = this.q.defer();
         this.http.get(this.apiPath + path)
-            .success(function(data) {
+            .success(function(ret) {
                 // The promise is resolved once the HTTP call is successful.
-                deferred.resolve(data);
+                deferred.resolve(ret);
             })
             .error(function() {
                 // The promise is rejected if there is an error with the HTTP call.
+                deferred.reject();
+            });
+        return deferred.promise;
+    }
+    postForm(path, data){
+        let deferred = this.q.defer();
+        this.http({
+                method: 'POST',
+                url: this.apiPath + path,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                transformRequest: (obj) => {
+                    var str = [];
+                    for(var p in obj)
+                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    return str.join("&");
+                },
+                data: data
+            })
+        // this.http.post(this.apiPath + path, data, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+            .success(function(ret) {
+                deferred.resolve(ret);
+            })
+            .error(function() {
                 deferred.reject();
             });
         return deferred.promise;

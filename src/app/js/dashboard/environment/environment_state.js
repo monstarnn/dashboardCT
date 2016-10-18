@@ -3,10 +3,10 @@
  */
 
 
-export const defoultGroup = "demo";
+export const defaultGroup = "demo";
 
 
-export const ApiPath = "/api/v1/";
+export const ApiPath = "/api/v0.1/";
 
 export class EnvironmentState {
     constructor () {

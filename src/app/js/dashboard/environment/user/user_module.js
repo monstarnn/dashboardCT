@@ -5,9 +5,9 @@ export default angular
     .module('environment.user', [])
     .service('ctUserService', UserService)
     .service('ApiService', ApiService)
-    .run(userInit);
+    // .run(userInit)
+;
 
 function userInit(ctUserService) {
-
     ctUserService.init();
 }

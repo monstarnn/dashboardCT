@@ -1,18 +1,30 @@
-var _state = new WeakMap();
-var _accountService = new WeakMap();
-
 class SigninController {
-    constructor($state, accountService) {
-        _state.set(this, $state);
-        _accountService.set(this, accountService);
+
+    constructor($scope, ApiService) {
+        this.api = ApiService;
+        this.scope = $scope;
+        this.wrongLogPass = false;
+        this.loggingIn = false;
+        this.email;
+        this.password;
+    }
+    
+    signin() {
+        this.loggingIn = true;
+        this.api.postForm('auth/login', {email : this.email, password : this.password}).then(() => {
+            location.reload();
+        }).catch(() => {
+            this.wrongLogPass = true;
+        }).finally(() => {
+            this.loggingIn = false;
+        });
     }
 
-    login() {
-        _accountService.get(this).login().then(()=> {
-            _state.get(this).go('main.list');
-        });
-    };
+    clear() {
+        this.wrongLogPass = false;
+    }
+
 }
 
-SigninController.$inject = ['$state', 'accountService'];
+SigninController.$inject = ['$scope', 'ApiService'];
 export {SigninController}

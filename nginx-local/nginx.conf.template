@@ -22,19 +22,7 @@ http {
       return 301 /mvp/;
     }
 
-    location ~ ^/mvp/js {
-    }
-
-    location ~ ^/mvp/css {
-    }
-
-    location ~ ^/mvp/fonts {
-    }
-
-    location ~ ^/mvp/img {
-    }
-
-    location ~ ^/mvp/favicon.ico {
+    location ~ ^/mvp/(bower_components|js|css|img|favicon.ico) {
     }
 
 #    location /ws/{
@@ -45,23 +33,23 @@ http {
 #    }
 
     location /api/ {
-#      auth_request /auth;
-#      auth_request_set $saved_set_cookie $upstream_http_set_cookie;
-#      add_header Set-Cookie $saved_set_cookie;
-#      proxy_pass http://API_ADDR:8082/api/;
+      auth_request /auth;
+      auth_request_set $saved_set_cookie $upstream_http_set_cookie;
+      add_header Set-Cookie $saved_set_cookie;
+      proxy_pass http://API_ADDR:8082/api/;
     }
 
-#    location /api/API_VER/auth/login {
-#      proxy_pass http://API_ADDR:8082/api/API_VER/auth/login;
-#    }
+    location /api/API_VER/auth/login {
+      proxy_pass http://API_ADDR:8082/api/API_VER/auth/login;
+    }
 
-#    location /api/API_VER/user/ {
-#      proxy_pass http://API_ADDR:8082/api/API_VER/user/;
-#    }
+    location /api/API_VER/user/ {
+      proxy_pass http://API_ADDR:8082/api/API_VER/user/;
+    }
 
-#    location /health-check {
-#      proxy_pass http://API_ADDR:8082/health-check;
-#    }
+    location /health-check {
+      proxy_pass http://API_ADDR:8082/health-check;
+    }
 
     location /mvp/js/lib {
       include /etc/nginx/mime.types;
@@ -74,17 +62,17 @@ http {
     }
     location /mvp/ {
 	  ssi on; # by default only for ssi_types text/html
-#      auth_request /auth;
-#      auth_request_set $saved_set_cookie $upstream_http_set_cookie;
-#      add_header Set-Cookie $saved_set_cookie;
+      auth_request /auth;
+      auth_request_set $saved_set_cookie $upstream_http_set_cookie;
+      add_header Set-Cookie $saved_set_cookie;
       include /etc/nginx/mime.types;
     }
-#    location /auth {
-#      proxy_pass http://API_ADDR:8082/auth1;
-#      proxy_pass_request_body off;
-#      proxy_set_header Content-Length "";
-#      proxy_set_header X-Original-URI $request_uri;
-#    }
+    location /auth {
+      proxy_pass http://API_ADDR:8082/auth1;
+      proxy_pass_request_body off;
+      proxy_set_header Content-Length "";
+      proxy_set_header X-Original-URI $request_uri;
+    }
     # redirect from group
     location ~ ^/mvp/([a-z-\d]+)/ {
       set $group $1;

@@ -6,24 +6,46 @@ export class UserService {
         // this.permission;
         // this.groupID;
         this.permissionDefer = $q.defer();
+        this.defers = {};
+        this.permissions = {};
     }
 
     init (groupId) {
-        if(groupId && (!this.permission || this.groupID != groupId)) {
-            this.groupID = groupId;
-            this._loadPermission(groupId).then((res) => {
-                this.permission = res.data;
-                this.permissionDefer.resolve(this.permission);
-            })
-        } else {
-            this.permissionDefer.resolve(this.permission);
+        debugger;
+        
+        if(groupId && !this.defers[groupId]) {
+            this.defers[groupId] = this.loadPermissions(groupId);
+            this.defers[groupId].then((res) => {
+                debugger;
+                this.permissions[groupId] = res;
+                // this.initDefer.resolve(res);
+            }).catch((err) => {
+                debugger;
+                // this.initDefer.reject(err);
+            }).finally(() => {
+                debugger;
+            });
 
         }
-        return this.permissionDefer.promise;
+        
+        return this.defers[groupId];
+        
+        // if(groupId && (!this.permission || this.groupID != groupId)) {
+        //     this.groupID = groupId;
+        //     this._loadPermission(groupId).then((res) => {
+        //         this.permission = res.data;
+        //         this.permissionDefer.resolve(this.permission);
+        //     })
+        // } else {
+        //     this.permissionDefer.resolve(this.permission);
+        //
+        // }
+        // return this.permissionDefer.promise;
     }
 
-    _loadPermission (groupId){
-        console.log(`load user permission list group {groupId}`);
+    loadPermissions (groupId){
+        debugger;
+        console.log(`load user permission list group ${groupId}`);
         return this.api.get("permissions");
         // var list = ['demo'];
         // var d = this._q.defer();

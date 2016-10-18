@@ -14,7 +14,7 @@ describe('GroupService', () => {
             deferred = _$q_.defer();
         });
         
-        let groups = ['just', 'a', 'test'], result_init;
+        let groups = ['groups', 'for', 'test'], result_init;
         
         spyOn(ctGroupService.api, 'get').and.returnValue(deferred.promise);
         
@@ -27,7 +27,7 @@ describe('GroupService', () => {
         $rootScope.$apply();
         
         expect(result_init).toEqual(groups);
-        
+
     });
     
     
