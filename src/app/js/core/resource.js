@@ -19,10 +19,10 @@ class CoreApiResource {
         this.list = [];
     }
 
-    query (update){
+    query (pr={}, update){
         if(this.Resource){
             if(!this.queryPromise || update){
-                this.queryPromise = this.Resource.query().$promise;
+                this.queryPromise = this.Resource.query(pr).$promise;
                 this.queryPromise.then(
                     (function(r)  {
                         this.list = r;
@@ -64,45 +64,49 @@ class CoreApiResource {
             var el;
             if(el = _.findWhere(this.list, {ID : element.ID})){
                 return element.$remove({id:el.ID}, (r) => {
-                    // debugger
-                    // var i = _.indexOf(this.list, element);
                     this.list = _.without(this.list, _.findWhere(this.list, element));
                     this.scope.$emit('change', this.list);
                 });
-            }else{
-                return this.add(element);
             }
         }else{
             var d = this._q.defer();
             d.reject('not element from save');
             return d.promise;
         }
-
     }
 
-    getById (id) {
+    getById (id, update) {
+
         var defer = this._q.defer();
         var promise = defer.$promise;
         var _this = this;
         if(id){
             var el =_.findWhere(this.list, {[this.idAttribute] : id });
-            if(!el){
-                promise = this.Resource.get({id : id}, () => {
-                }).$promise;
-            } else if(!el.$promise) {
-                promise = el.$get({id:el.ID}, (r) => {
-                    el = _.extend(r, {$promise : promise});
-                    _this.scope.$emit('change', _this.list);
-                    _this.scope.$emit('change:' + id, el);
-                });
-            }else {
-                return el.$promise;
+            if( !el || (el && !el.$promise) || update ){
+                var getDefer = this.Resource.get(
+                    {id : id}
+                    , (r) => {
+                        if(el)
+                            el = r;
+                        else
+                            this.list.push(r);
+                        defer.resolve(r);
+                        _this.scope.$emit('change', _this.list);
+                        _this.scope.$emit('change:' + id, el);
+                    }
+                    , (r) => {
+                        defer.resolve({Error : r});
+                    }
+                );
+            }
+            else {
+                defer.resolve(el);
             }
 
         } else {
-            defer.reject('error');
+            defer.resolve({Error : 'error not id'});
         }
-        return promise;
+        return defer.promise;
     }
 }
 

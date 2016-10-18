@@ -1,0 +1,12 @@
+
+<div ng-If="$ctrl.isLoading()">LOADING</div>
+<div ng-If="$ctrl.isError()">Error</div>
+<div ng-if="$ctrl.isComplite()">
+    <h1>
+        catalog item {{$ctrl.projectDetail.Name}}
+        <span ng-If($ctrl.projectDetail.fullData>Full</span>
+        <btn class="btn" ng-click="$ctrl.add()">add</btn>
+        <btn class="btn" ng-click="$ctrl.edit()">edit</btn>
+        <btn class="btn" ng-click="$ctrl.remove()">delete</btn>
+    </h1>
+</div>

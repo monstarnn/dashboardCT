@@ -4,27 +4,60 @@
 
 
 export default class ProjectDetailController {
-    constructor (projectDetail, ApiResourceProjects, $state){
-        debugger;
+
+    constructor ( ApiResourceProjects, $state, $stateParams, $q ){
+        debugger
+        this._q = $q;
+        this.projectID = $stateParams.projectID;
         this.state = $state;
-        this.projectDetail = projectDetail;
+        this.Error = false;
+        this.projectDetail;
         this.apiResourceProjects = ApiResourceProjects;
-        this.apiResourceProjects.scope.$on('change', (event, data) => {
+        this.apiResourceProjects.scope.$on('change:' + this.projectID, (event, data) => {
             console.log(event, data);
             debugger
         });
+        this.getProject();
     }
+
+    isLoading () {
+        return  (!this.Error && !this.projectDetail) ? true : false;
+    }
+
+    isError() {
+        return this.Error ? true: false;
+    }
+
+    isComplite() {
+        return this.projectDetail ? true : false;
+    }
+
+    getProject () {
+        this.apiResourceProjects.queryPromise.then(() => {
+            this.apiResourceProjects.getById(this.projectID)
+                .then((res) => {
+                    debugger;
+                    if(res.Error) {
+                        this.Error = res.Error;
+                    }else{
+                        this.projectDetail = res;
+                    }
+                })
+                .catch((res) => {
+                    debugger
+                });
+        });
+    }
+
+
+
     add () {
-
         return this.apiResourceProjects.add({Name: "NamePr_" + _.now()}).then((r)=>{
-            // debugger;
-
-            this.state.go(`ProjectDetail({projectID : ${r.ID})`);
+            this.state.go('ProjectDetail', {projectID : r.ID});
         });
     }
 
     edit () {
-        // debugger
         _.extend(this.projectDetail, {Name :"NamePr_S_" + _.now() });
         this.apiResourceProjects.save(this.projectDetail);
     }
