@@ -38,7 +38,7 @@ class CoreApiResource {
         return this.Resource.save(data, (data) => {
             this.list.push(data);
             this.scope.$emit('change', this.list);
-        })
+        }).$promise;
     }
 
     save (element) {
@@ -46,7 +46,7 @@ class CoreApiResource {
             var el;
             if(el = _.findWhere(this.list, {ID : element.ID})){
                 return element.$save( (r) => {
-                    debugger
+                    // debugger
                     this.scope.$emit('change', this.list);
                 });
             }else{
@@ -64,8 +64,8 @@ class CoreApiResource {
             var el;
             if(el = _.findWhere(this.list, {ID : element.ID})){
                 return element.$remove({id:el.ID}, (r) => {
-                    debugger
-                    var i = _.indexOf(this.list, element);
+                    // debugger
+                    // var i = _.indexOf(this.list, element);
                     this.list = _.without(this.list, _.findWhere(this.list, element));
                     this.scope.$emit('change', this.list);
                 });
@@ -108,10 +108,8 @@ class CoreApiResource {
 
 export default class CoreResource  {
     constructor( ApiPath, $resource , $rootScope, $q){
-        // this.arg = _.values(arguments);
         this.path = ApiPath;
         this.scope = $rootScope;
-        // this._scope = $scope;
         this._q = $q;
         this.r = $resource;
         this.pr = {
