@@ -5,25 +5,25 @@ export class UserService {
         this.api = ApiService;
         // this.permission;
         // this.groupID;
-        this.permissionDefer = $q.defer();
+        // this.permissionDefer = $q.defer();
         this.defers = {};
         this.permissions = {};
     }
 
     init (groupId) {
-        debugger;
+        // debugger;
         
         if(groupId && !this.defers[groupId]) {
             this.defers[groupId] = this.loadPermissions(groupId);
             this.defers[groupId].then((res) => {
-                debugger;
+                // debugger;
                 this.permissions[groupId] = res;
                 // this.initDefer.resolve(res);
             }).catch((err) => {
-                debugger;
+                // debugger;
                 // this.initDefer.reject(err);
             }).finally(() => {
-                debugger;
+                // debugger;
             });
 
         }
@@ -44,9 +44,9 @@ export class UserService {
     }
 
     loadPermissions (groupId){
-        debugger;
-        console.log(`load user permission list group ${groupId}`);
-        return this.api.get("permissions");
+        // debugger;
+        // console.log(`load user permission list group ${groupId}`);
+        return this.api.get(`groups/${groupId}/permissions`);
         // var list = ['demo'];
         // var d = this._q.defer();
         // d.resolve(list);

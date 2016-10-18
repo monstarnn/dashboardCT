@@ -14,6 +14,6 @@ export const ProjectsListComponent = {
         projectsList : '<',
         apiResourceProjects: '<'
     },
-    contoller : ProjectsListController,
+    controller : ProjectsListController,
     template : '<div ng-repeat="i in $ctrl.projectsList">{{i.Name}}</div>'
 }

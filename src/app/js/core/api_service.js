@@ -23,11 +23,19 @@ export default class {
         this.http.get(this.apiPath + path)
             .success(function(ret) {
                 // The promise is resolved once the HTTP call is successful.
-                deferred.resolve(ret);
+                // deferred.resolve(ret);
+                deferred.resolve({
+                    success : true,
+                    data : ret
+                });
             })
-            .error(function() {
+            .error(function(error) {
                 // The promise is rejected if there is an error with the HTTP call.
-                deferred.reject();
+                // deferred.reject();
+                deferred.resolve({
+                    success : false,
+                    error : error
+                });
             });
         return deferred.promise;
     }

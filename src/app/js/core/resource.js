@@ -65,7 +65,7 @@ class CoreApiResource {
             if(el = _.findWhere(this.list, {ID : element.ID})){
                 return element.$remove({id:el.ID}, (r) => {
                     debugger
-                    var i = _.indexOf(this.list, element);
+                    // var i = _.indexOf(this.list, element);
                     this.list = _.without(this.list, _.findWhere(this.list, element));
                     this.scope.$emit('change', this.list);
                 });
@@ -135,50 +135,50 @@ export default class CoreResource  {
     }
 
 
-    getById (id){
-        var defer = this.arg[3].defer();
-        debugger;
-        var promise = defer.promise;
-        if(!id) {
-            defer.reject(false)
-        }
-        else {
-            var el = _.findWhere(this.list, {[this.idAttribute]: id});
-            if (!el) {
-                promise = this.Resource.get({[this.idAttribute]: id}).then((res) => {
-                    this.list.push(res);
-                    this.scope.$emit('change', this.list, res);
-                });
-            } else if (!el.$promise) {
-                promise = el.$get().$promise;
-            }
-            else {
-                promise = el.$promise;
-            }
-        }
-
-        return promise;
-    }
-
-    query (update){
-        if(this.Resource){
-            if(!this.queryPromise || update){
-                this.queryPromise = this.Resource.query().$promise;
-                this.queryPromise.then((r) => {
-                    this.list = r;
-                    this.scope.$emit('change', this.list);
-                })
-            }
-            return this.queryPromise;
-        }
-    }
-
-    add (data) {
-        this.Resource.save(data, (data) => {
-            this.list.push(data);
-            this.scope.$emit('change', this.list);
-        })
-    }
+    // getById (id){
+    //     var defer = this.arg[3].defer();
+    //     debugger;
+    //     var promise = defer.promise;
+    //     if(!id) {
+    //         defer.reject(false)
+    //     }
+    //     else {
+    //         var el = _.findWhere(this.list, {[this.idAttribute]: id});
+    //         if (!el) {
+    //             promise = this.Resource.get({[this.idAttribute]: id}).then((res) => {
+    //                 this.list.push(res);
+    //                 this.scope.$emit('change', this.list, res);
+    //             });
+    //         } else if (!el.$promise) {
+    //             promise = el.$get().$promise;
+    //         }
+    //         else {
+    //             promise = el.$promise;
+    //         }
+    //     }
+    //
+    //     return promise;
+    // }
+    //
+    // query (update){
+    //     if(this.Resource){
+    //         if(!this.queryPromise || update){
+    //             this.queryPromise = this.Resource.query().$promise;
+    //             this.queryPromise.then((r) => {
+    //                 this.list = r;
+    //                 this.scope.$emit('change', this.list);
+    //             })
+    //         }
+    //         return this.queryPromise;
+    //     }
+    // }
+    //
+    // add (data) {
+    //     this.Resource.save(data, (data) => {
+    //         this.list.push(data);
+    //         this.scope.$emit('change', this.list);
+    //     })
+    // }
 
     // getItemPromise(id) {
     //     if(this.queryPromise){
@@ -186,14 +186,14 @@ export default class CoreResource  {
     //     }
     // }
 
-    delete (id) {
-        if(id && this.list.length){
-            var el = _.findWhere(this.list, {[this.idAtribute]: id });
-            el.$delete((data) => {
-                debugger;
-            });
-        }
-    }
+    // delete (id) {
+    //     if(id && this.list.length){
+    //         var el = _.findWhere(this.list, {[this.idAtribute]: id });
+    //         el.$delete((data) => {
+    //             debugger;
+    //         });
+    //     }
+    // }
 
     getResource(path, pr = {}){
         var r = this.resource(path, pr.resource, this.pr);

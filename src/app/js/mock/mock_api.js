@@ -7,15 +7,35 @@ import {projects} from './projects'
 import {permissions} from './permissions'
 import {catalog} from './catalog'
 
-apiData.groups = groups;
-apiData.projects = projects;
-apiData.permissions = permissions;
-apiData.catalog = catalog;
+apiData['groups'] = groups;
+apiData['projects'] = projects;
+apiData['groups/demo/permissions'] = permissions;
+apiData['groups/demo/catalog/components'] = catalog;
 
 
 export default function (app) {
     app.config(function ($provide) {
-        $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
+        
+        // $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
+
+        $provide.decorator('$httpBackend', function($delegate) {
+            var proxy = function(method, url, data, callback, headers) {
+                var interceptor = function() {
+                    var _this = this,
+                        _arguments = arguments;
+                    setTimeout(function() {
+                        callback.apply(_this, _arguments);
+                    }, 1000);
+                };
+                return $delegate.call(this, method, url, data, interceptor, headers);
+            };
+            for(var key in $delegate) {
+                proxy[key] = $delegate[key];
+            }
+            return proxy;
+        });
+
+
     });
     app.run(function ($httpBackend, ApiService) {
         let apiPath = ApiService.getApiPath();
@@ -27,9 +47,9 @@ export default function (app) {
                 }
             );
 
-            $httpBackend.whenGET(new RegExp('\\/' + uri + '\\/[0-9a-z]+')).respond(
+            $httpBackend.whenGET(new RegExp('\\/' + uri + '\\/[0-9a-z-]+$')).respond(
                 function(method, url){
-                    var regexp = new RegExp('\\/' + uri + '\\/([0-9a-z]+)');
+                    var regexp = new RegExp('\\/' + uri + '\\/([0-9a-z-]+)$');
                     var mockId = url.match(regexp)[1];
                     debugger
                     var data = _.findWhere(apiData[uri], {ID : mockId});

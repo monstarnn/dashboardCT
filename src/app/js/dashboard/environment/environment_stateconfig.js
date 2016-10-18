@@ -1,15 +1,17 @@
-/**
- * Created by ilja on 06.10.16.
- */
+import GroupController from './group/group_controller'
 
 export default function ($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.when('/:groupID', '/:groupID/catalog');
+
+    // $urlRouterProvider.when('/:groupID', '/:groupID/catalog');
+    // $urlRouterProvider.otherwise('/');
+
     $stateProvider
         .state('Group', {
             url: '/:groupID',
-            abstract: true,
+            // abstract: true,
             resolve : {
                 groups : function (ctGroupService) {
+                    debugger;
                     return ctGroupService.init();
                 },
                 user : function (ctUserService, $stateParams) {
@@ -38,8 +40,15 @@ export default function ($stateProvider, $urlRouterProvider) {
             },
             views: {
                 "": {
-                    template: '<div ui-view class="mc-groups-page">Group_list</div>'
+                    controller: GroupController
+                    // controllerAs: '$ctrl',
+                    // template: `<div class="mc-groups-page">
+                    //     <h1>Groups:</h1>
+                    //     <mct-group-list group-list="$ctrl.groups"></mct-group-list>
+                    //     </div>
+                    //     `
                 }
             }
+
         })
 };

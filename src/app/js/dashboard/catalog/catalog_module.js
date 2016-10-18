@@ -1,4 +1,3 @@
-
 import {catalogListComponent} from './catalog_list_component'
 import {catalogListItemComponent} from './catalog_list_item_conponent'
 import stateConfig from './catalog_stateconfig'
@@ -12,6 +11,7 @@ export default angular
     .component('mctCatalogListItem', catalogListItemComponent)
     .factory('ApiResourceCatalog', getApiResourceCatalog)
 
-function getApiResourceCatalog (ApiResource) {
-    return ApiResource.resource('catalog');
+function getApiResourceCatalog (ApiResource, $stateParams) {
+    debugger;
+    return ApiResource.resource(`groups/${$stateParams.groupID}/catalog/components`);
 }
