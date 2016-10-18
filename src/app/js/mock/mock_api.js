@@ -26,6 +26,34 @@ export default function (app) {
                     return [200, apiData[uri]];
                 }
             );
+
+            $httpBackend.whenGET(new RegExp('\\/' + uri + '\\/[0-9a-z]+')).respond(
+                function(method, url){
+                    var regexp = new RegExp('\\/' + uri + '\\/([0-9a-z]+)');
+                    var mockId = url.match(regexp)[1];
+                    debugger
+                    var data = _.findWhere(apiData[uri], {ID : mockId});
+                    return [200, _.extend({fullData : true}, data)];
+                }
+            );
+
+            $httpBackend.whenDELETE(new RegExp('\\/' + uri + '\\/[0-9a-z]+')).respond(
+                function(method, url){
+                    debugger;
+                    var regexp = new RegExp('\\/' + uri + '\\/([0-9a-z]+)');
+                    var mockId = url.match(regexp)[1];
+
+                    var data = _.findWhere(apiData[uri], {ID : mockId});
+                    var i = _.indexOf(apiData, data);
+                    return [200, _.extend({fullData : true}, data)];
+                }
+            );
+
+            $httpBackend.whenDELETE(apiPath + uri).respond((methid, path, data) => {
+                debugger;
+                return [200, _.extend({ID:_.now()}, JSON.parse(data))];
+            })
+
             $httpBackend.whenPOST(apiPath + uri).respond((methid, path, data) => {
                 debugger;
                 return [200, _.extend({ID:_.now()}, JSON.parse(data))];

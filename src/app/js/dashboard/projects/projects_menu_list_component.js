@@ -18,5 +18,5 @@ export class ProjectMenuListController {
 
 export const ProjectsMenuListComponent = {
     controller: ProjectMenuListController,
-    template: `<ul><li ng-repeat="i in $ctrl.projectsList" ><a ui-sref="Project({projectID : i.ID})" ui-sref-active="active">{{i.Name}}</a></li></ul>`
+    template: `<ul><li ng-repeat="i in $ctrl.projectsList" ><a ui-sref="ProjectDetail({projectID : i.ID})" ui-sref-active="active">{{i.Name}}</a></li></ul>`
 }

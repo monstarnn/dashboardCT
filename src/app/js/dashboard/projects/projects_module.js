@@ -5,7 +5,7 @@ import {ProjectsMenuListComponent} from './projects_menu_list_component';
 import StateConfig from './projects_stateconfig';
 import Templates from '../../core/templates';
 // import {ApiProjectsService} from './projects_service'
-import CoreResource from '../../core/resource'
+// import CoreResource from '../../core/resource'
 
 export default angular
     .module('dashboard.project', [
@@ -17,8 +17,13 @@ export default angular
     .component('mctProjectsMenuList', ProjectsMenuListComponent)
     // .service('ApiProjectsService', ApiProjectsService)
 
-    .factory('ApiResourceProjects', function (ApiResource) {
-            var r = ApiResource.getResource('projects', {} /*{idAttribute : "id"}*/);
+    .factory('ApiResourceProjects', function (ApiResource, $resource) {
+            var r = ApiResource.getResource('projects/:id'
+                // , {
+                //     resource : { id : "@ID" }
+                // }
+            );
+            // var r = $resource('projects/:id');
             r.query();
             return  r;
         }

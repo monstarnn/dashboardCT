@@ -8,93 +8,101 @@
 
 
 class CoreApiResource {
+
     constructor(path, prop = {}, resource, $scope, $q) {
         this.idAttribute = "ID";
-        // this.prototype = prop
         _.extend(this, prop);
         this.path = path;
         this.scope = $scope;
         this._q = $q;
         this.Resource = resource;
         this.list = [];
-        this.init();
-        debugger;
-    }
-
-    init () {
-        this.scope.$watch(this.scopeDataName + '.list',  () => {
-            this.scope.$emit('change', this.list);
-        })
-    }
-
-    get scopeDataName () {
-        return  this.constructor.name + "_" + this.path;
-    }
-
-    get scopeData(){
-        // var dataName = this.constructor.name + "_" + this.path;
-        if(!this.scope[this.scopeDataName]) this.scope[this.scopeDataName] = {};
-        return this.scope[this.scopeDataName];
-    }
-
-    get list() {
-        return this.scopeData.list;
-    }
-
-    set list(data) {
-        this.scopeData.list = data;
     }
 
     query (update){
         if(this.Resource){
             if(!this.queryPromise || update){
                 this.queryPromise = this.Resource.query().$promise;
-                this.queryPromise.then((r) => {
-                    debugger;
-                    this.list = r;
-                    // this.scope.$emit('change', this.list);
-                })
+                this.queryPromise.then(
+                    (function(r)  {
+                        this.list = r;
+                        this.scope.$emit('change', this.list);
+                    }).bind(this)
+                );
             }
             return this.queryPromise;
         }
     }
 
     add (data) {
-        debugger;
-        this.Resource.save(data, (data) => {
-            debugger;
-            this.scope[this.scopeDataName].list.push(data);
-            // this.scope.$emit('change', this.list);
+        return this.Resource.save(data, (data) => {
+            this.list.push(data);
+            this.scope.$emit('change', this.list);
         })
     }
 
-    // save () {
-    //     debugger
-    // }
+    save (element) {
+        if(element) {
+            var el;
+            if(el = _.findWhere(this.list, {ID : element.ID})){
+                return element.$save( (r) => {
+                    debugger
+                    this.scope.$emit('change', this.list);
+                });
+            }else{
+                return this.add(element);
+            }
+        }else{
+            var d = this._q.defer();
+            d.reject('not element from save');
+            return d.promise;
+        }
+    }
 
-    getNyId (id) {
+    remove (element) {
+        if(element) {
+            var el;
+            if(el = _.findWhere(this.list, {ID : element.ID})){
+                return element.$remove({id:el.ID}, (r) => {
+                    debugger
+                    var i = _.indexOf(this.list, element);
+                    this.list = _.without(this.list, _.findWhere(this.list, element));
+                    this.scope.$emit('change', this.list);
+                });
+            }else{
+                return this.add(element);
+            }
+        }else{
+            var d = this._q.defer();
+            d.reject('not element from save');
+            return d.promise;
+        }
+
+    }
+
+    getById (id) {
         var defer = this._q.defer();
-        var promice = defer.$promice;
-        debugger;
+        var promise = defer.$promise;
+        var _this = this;
         if(id){
             var el =_.findWhere(this.list, {[this.idAttribute] : id });
             if(!el){
-                return this.Resource.get({ID : id}).then(() => {
-                    debugger;
-                })
-            } else if(!el.$promice) {
-                debugger;
-                el.$get((r) => {
-                    debugger;
-                }).$promice;
+                promise = this.Resource.get({id : id}, () => {
+                }).$promise;
+            } else if(!el.$promise) {
+                promise = el.$get({id:el.ID}, (r) => {
+                    el = _.extend(r, {$promise : promise});
+                    _this.scope.$emit('change', _this.list);
+                    _this.scope.$emit('change:' + id, el);
+                });
             }else {
-                return el.$promice;
+                return el.$promise;
             }
 
         } else {
             defer.reject('error');
         }
-        return promice;
+        return promise;
     }
 }
 
@@ -106,7 +114,13 @@ export default class CoreResource  {
         // this._scope = $scope;
         this._q = $q;
         this.r = $resource;
-        this.pr = {}; // TODO add methods
+        this.pr = {
+            query: { method: 'GET', isArray: true },
+            create: { method: 'POST' },
+            get: { method: 'GET' , params: {id: '@id'} },
+            update: { method: 'PUT', params: {id: '@id'} },
+            delete: { method: 'DELETE', params: {id: '@id'} }
+        };
         this.Resource;
         this.queryPromise;
         this.list = [];
@@ -136,7 +150,7 @@ export default class CoreResource  {
                     this.scope.$emit('change', this.list, res);
                 });
             } else if (!el.$promise) {
-                promise = el.get().$promise;
+                promise = el.$get().$promise;
             }
             else {
                 promise = el.$promise;
@@ -182,16 +196,7 @@ export default class CoreResource  {
     }
 
     getResource(path, pr = {}){
-        var r = this.resource(path, pr.resource);
-        debugger;
+        var r = this.resource(path, pr.resource, this.pr);
         return new CoreApiResource(path, pr, r, this.scope, this._q);
-
-        // debugger
-        // var r = new CoreResource(this.path, this.r, this.scope);
-        // debugger
-        //
-        // var r = _.clone(this);
-        // r.resource(path, pr);
-        // return r;
     }
 }

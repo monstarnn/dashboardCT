@@ -3,9 +3,10 @@
  */
 
 import Projects from '../projects/projects_module';
-import StateConfig from './project_deteil_staetconfig'
+import StateConfig from './project_detail_staetconfig'
 export default angular
-    .module(Projects.name, [
+    .module('dashboard.project.detail', [
+        Projects.name
     ])
     .config(StateConfig)
 ;
