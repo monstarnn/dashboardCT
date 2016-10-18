@@ -8,11 +8,17 @@ export class UserService {
         // this.permissionDefer = $q.defer();
         this.defers = {};
         this.permissions = {};
+        this.groupId = 'NONE';
+    }
+
+    get groupID () {
+        debugger;
+        return this.groupId;
     }
 
     init (groupId) {
         // debugger;
-        
+        this.groupId = groupId;
         if(groupId && !this.defers[groupId]) {
             this.defers[groupId] = this.loadPermissions(groupId);
             this.defers[groupId].then((res) => {

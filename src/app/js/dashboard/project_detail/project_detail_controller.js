@@ -5,8 +5,9 @@
 
 export default class ProjectDetailController {
 
-    constructor ( ApiResourceProjects, $state, $stateParams, $q ){
+    constructor ( ApiResourceProjects, $state, $stateParams, $q, $rootScope ){
         debugger
+        $rootScope.ENV_GROUP = "demo";
         this._q = $q;
         this.projectID = $stateParams.projectID;
         this.state = $state;
@@ -33,7 +34,7 @@ export default class ProjectDetailController {
     }
 
     getProject () {
-        this.apiResourceProjects.queryPromise.then(() => {
+        this.apiResourceProjects.query({}, true).then(() => {
             this.apiResourceProjects.getById(this.projectID)
                 .then((res) => {
                     debugger;
