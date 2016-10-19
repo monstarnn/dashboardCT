@@ -10,20 +10,13 @@ export default function ($stateProvider, $urlRouterProvider) {
             url: '/:groupID',
             // abstract: true,
             resolve : {
-                // groups : function (ctGroupService) {
-                //     debugger;
-                //     return ctGroupService.init();
-                // },
-                user : function (ctUserService, $stateParams, ApiResourcePermissions) {
-                    // console.log('here');
-                    // debugger;
-                    // return ApiResourcePermissions.list;
+                user : function (ctUserService, $stateParams) {
                     return ctUserService.init($stateParams.groupID);
                 }
             },
             views: {
                 "": {
-                    template: '<div ui-view >Group</div>',
+                    template: '<div ui-view>Group</div>',
                     controller: function ($stateParams, $rootScope, ctGroupService) {
                         console.log($stateParams);
                         // debugger;

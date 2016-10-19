@@ -32,6 +32,7 @@ function bundle(option) {
 		console.log(("Watching ES6 modules for " + option.entryPoint).yellow);
 		bfy.on('update', function (ids) {
 			gutil.log(('Watchify. Updated files ' + ids).yellow);
+			// gutil.log(bfy);
 			return processBundle(bfy, option);
 		}).on('time', function (time) {
 			gutil.log(('Rebuilded time:' + time).green);

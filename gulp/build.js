@@ -21,7 +21,7 @@ var path = require('path'),
     // bowerDir = appDir + '/bower_components'
     ;
 
-gulp.task('clean', del.bind(null, [destDir], {force: true}));
+gulp.task('clean', del.bind(null, [destDir + "/**", "!" + destDir], {force: true}));
 
 gulp.task('img', function () {
     return gulp.src([appDir + '/img/**/*.*'])
@@ -75,22 +75,22 @@ gulp.task('build-es6', function (cb) {
 
 var bundler = require('./es6bundler');
 
-gulp.task('build-es6-dashboard', function () {
-    var options = assign({}, config);
-    // options.entryPoint = appDir + '/js/dashboard.js';
-    options.entryPoint = appDir + '/js/dashboard/dashboard_module.js';
-    options.bundleName = 'dashboard.js';
-    options.bundleNameMin = 'dashboard.min.js';
-    options.destPathName = destPathName + '/js';
-    return bundler(options);
-});
-
 gulp.task('build-es6-dashboard-mock', function () {
     var options = assign({}, config);
     // options.entryPoint = appDir + '/js/dashboardmock.js';
     options.entryPoint = appDir + '/js/dashboard/dashboard_mock_module.js';
     options.bundleName = 'dashboardmock.js';
     options.bundleNameMin = 'dashboardmock.min.js';
+    options.destPathName = destPathName + '/js';
+    return bundler(options);
+});
+
+gulp.task('build-es6-dashboard', function () {
+    var options = assign({}, config);
+    // options.entryPoint = appDir + '/js/dashboard.js';
+    options.entryPoint = appDir + '/js/dashboard/dashboard_module.js';
+    options.bundleName = 'dashboard.js';
+    options.bundleNameMin = 'dashboard.min.js';
     options.destPathName = destPathName + '/js';
     return bundler(options);
 });
