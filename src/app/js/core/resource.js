@@ -19,7 +19,7 @@ class CoreApiResource {
         this.list = [];
     }
 
-    query (pr={}, update){
+    query (pr = {}, update){
         if(this.Resource){
             if(!this.queryPromise || update){
                 this.queryPromise = this.Resource.query(pr).$promise;
@@ -28,7 +28,10 @@ class CoreApiResource {
                         this.list = r;
                         this.scope.$emit('change', this.list);
                     }).bind(this)
-                );
+                ).catch(() => {
+                    debugger/*!!!!!!!!!!!!!!!!!!!!!!!*/
+                    this.queryPromise = null;
+                });
             }
             return this.queryPromise;
         }
@@ -111,15 +114,16 @@ class CoreApiResource {
 }
 
 export default class CoreResource  {
-    constructor( ApiPath, $resource , $rootScope, $q){
+    constructor( ApiPath, $resource , $rootScope, $q, ctUserService ={}){
+        this.ctUserService = ctUserService ;
         this.path = ApiPath;
         this.scope = $rootScope;
         this._q = $q;
         this.r = $resource;
         this.pr = {
-            query: { method: 'GET', isArray: true },
+            query: { method: 'GET', isArray: true , params: {groupID : this.ctUserService.groupID}},
             create: { method: 'POST' },
-            get: { method: 'GET' , params: {id: '@id'} },
+            get: { method: 'GET' , params: {id: '@id', groupID : this.ctUserService} },
             update: { method: 'PUT', params: {id: '@id'} },
             delete: { method: 'DELETE', params: {id: '@id'} }
         };
