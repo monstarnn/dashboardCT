@@ -12,7 +12,6 @@ apiData['projects'] = projects;
 apiData['groups/demo/permissions'] = permissions;
 apiData['groups/demo/catalog/components'] = catalog;
 
-
 export default function (app) {
     app.config(function ($provide) {
         

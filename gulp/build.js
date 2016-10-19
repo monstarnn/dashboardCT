@@ -66,7 +66,8 @@ gulp.task('sass', function () {
 
 gulp.task('build-es6', function (cb) {
     runSequence(
-        'build-es6-app'
+        'build-es6-dashboard'
+        , 'build-es6-dashboard-mock'
         , 'build-es6-login'
         , cb
     );
@@ -74,18 +75,30 @@ gulp.task('build-es6', function (cb) {
 
 var bundler = require('./es6bundler');
 
-gulp.task('build-es6-app', function () {
+gulp.task('build-es6-dashboard', function () {
     var options = assign({}, config);
-    options.entryPoint = appDir + '/js/app.js';
-    options.bundleName = 'app.js';
-    options.bundleNameMin = 'app.min.js';
+    // options.entryPoint = appDir + '/js/dashboard.js';
+    options.entryPoint = appDir + '/js/dashboard/dashboard_module.js';
+    options.bundleName = 'dashboard.js';
+    options.bundleNameMin = 'dashboard.min.js';
+    options.destPathName = destPathName + '/js';
+    return bundler(options);
+});
+
+gulp.task('build-es6-dashboard-mock', function () {
+    var options = assign({}, config);
+    // options.entryPoint = appDir + '/js/dashboardmock.js';
+    options.entryPoint = appDir + '/js/dashboard/dashboard_mock_module.js';
+    options.bundleName = 'dashboardmock.js';
+    options.bundleNameMin = 'dashboardmock.min.js';
     options.destPathName = destPathName + '/js';
     return bundler(options);
 });
 
 gulp.task('build-es6-login', function () {
     var options = assign({}, config);
-    options.entryPoint = appDir + '/js/login.js';
+    // options.entryPoint = appDir + '/js/login.js';
+    options.entryPoint = appDir + '/js/login/login_module.js';
     options.bundleName = 'login.js';
     options.bundleNameMin = 'login.min.js';
     options.destPathName = destPathName + '/js';

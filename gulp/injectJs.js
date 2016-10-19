@@ -16,8 +16,10 @@ gulp.task('injectJs', function () {
 	var mainTemplates = [destPathName + '/js/templates.js'];
 	mainTemplates.injectPlaceholder = 'templates';
 
-	var appJs = [destPathName + '/js/app.js'];
-	appJs.injectPlaceholder = 'app';
+	var dashboardJs = [destPathName + '/js/dashboard.js'];
+	dashboardJs.injectPlaceholder = 'dashboard';
+	var dashboardMockJs = [destPathName + '/js/dashboardmock.js'];
+	dashboardMockJs.injectPlaceholder = 'dashboardmock';
 	var loginJs = [destPathName + '/js/login.js'];
 	loginJs.injectPlaceholder = 'login';
 
@@ -29,10 +31,17 @@ gulp.task('injectJs', function () {
 				addRootSlash: false // relative path
 			}
 		))
-		.pipe(inject(gulp.src(appJs), {
+		.pipe(inject(gulp.src(dashboardJs), {
 				read: false,
 				ignorePath: 'dist',
-				name: appJs.injectPlaceholder,
+				name: dashboardJs.injectPlaceholder,
+				addRootSlash: false // relative path
+			}
+		))
+		.pipe(inject(gulp.src(dashboardMockJs), {
+				read: false,
+				ignorePath: 'dist',
+				name: dashboardMockJs.injectPlaceholder,
 				addRootSlash: false // relative path
 			}
 		))

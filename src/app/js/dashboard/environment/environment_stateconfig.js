@@ -10,11 +10,14 @@ export default function ($stateProvider, $urlRouterProvider) {
             url: '/:groupID',
             // abstract: true,
             resolve : {
-                groups : function (ctGroupService) {
-                    debugger;
-                    return ctGroupService.init();
-                },
-                user : function (ctUserService, $stateParams) {
+                // groups : function (ctGroupService) {
+                //     debugger;
+                //     return ctGroupService.init();
+                // },
+                user : function (ctUserService, $stateParams, ApiResourcePermissions) {
+                    // console.log('here');
+                    // debugger;
+                    // return ApiResourcePermissions.list;
                     return ctUserService.init($stateParams.groupID);
                 }
             },
@@ -35,6 +38,7 @@ export default function ($stateProvider, $urlRouterProvider) {
             url: '^',
             resolve : {
                 groups : function (ctGroupService) {
+                    debugger;
                     return ctGroupService.init();
                 }
             },
