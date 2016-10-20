@@ -1,26 +1,27 @@
 export class UserService {
     
-    constructor($rootScope, ApiResourcePermissions, $state){
+    constructor($rootScope, ApiResourcePermissions, $state /*, envService*/){
         this.scope = $rootScope;
         this.resource = ApiResourcePermissions;
         this.state = $state;
         this.resources = {};
         this.permissions = {};
+        this.groupID;
     }
 
     init (groupId) {
         let permissions = this.permissions;
         let state = this.state;
         if(groupId && !this.resources[groupId]) {
-            debugger;
             this.resources[groupId] = this.resource.query({groupID : groupId}, true)
                 .then((data) => {
-                    debugger;
                     permissions[groupId] = data;
+                    debugger;
+                    this.groupID = groupId;
                 })
                 .catch(() => {
-                    debugger;
                     /// !!!!! ???? !!!
+                    this.groupID = null;
                     state.go('GroupSelect');
                 });
         }

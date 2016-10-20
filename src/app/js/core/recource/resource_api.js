@@ -1,13 +1,8 @@
 /**
- * Created by ilja on 12.10.16.
+ * Created by ilja on 19.10.16.
  */
 
-/**
- *  project orient ngResource
- */
-
-
-class CoreApiResource {
+export default class CoreResourceApi {
 
     constructor(path, prop = {}, resource, $scope, $q) {
         this.idAttribute = "ID";
@@ -111,100 +106,5 @@ class CoreApiResource {
             defer.resolve({Error : 'error not id'});
         }
         return defer.promise;
-    }
-}
-
-export default class CoreResource  {
-    constructor( ApiPath, $resource , $rootScope, $q){
-        // this.envUserService = envUserService ;
-
-        this.path = ApiPath;
-        this.scope = $rootScope;
-        this._q = $q;
-        this.r = $resource;
-        this.pr = {
-            query: { method: 'GET', isArray: true },
-            create: { method: 'POST' },
-            get: { method: 'GET' , params: {id: '@id'} },
-            update: { method: 'PUT', params: {id: '@id'} },
-            delete: { method: 'DELETE', params: {id: '@id'} }
-        };
-        this.Resource;
-        this.queryPromise;
-        this.list = [];
-        this.idAttribute = 'ID';
-        // this.scope.$watch()
-        // this.scope = $scope;
-    }
-
-    resource (path, pr = {}) {
-        path = path || this.path;
-        return this.Resource = this.r(this.path + path, pr, this.pr);
-    }
-
-
-    // getById (id){
-    //     var defer = this.arg[3].defer();
-    //     debugger;
-    //     var promise = defer.promise;
-    //     if(!id) {
-    //         defer.reject(false)
-    //     }
-    //     else {
-    //         var el = _.findWhere(this.list, {[this.idAttribute]: id});
-    //         if (!el) {
-    //             promise = this.Resource.get({[this.idAttribute]: id}).then((res) => {
-    //                 this.list.push(res);
-    //                 this.scope.$emit('change', this.list, res);
-    //             });
-    //         } else if (!el.$promise) {
-    //             promise = el.$get().$promise;
-    //         }
-    //         else {
-    //             promise = el.$promise;
-    //         }
-    //     }
-    //
-    //     return promise;
-    // }
-    //
-    // query (update){
-    //     if(this.Resource){
-    //         if(!this.queryPromise || update){
-    //             this.queryPromise = this.Resource.query().$promise;
-    //             this.queryPromise.then((r) => {
-    //                 this.list = r;
-    //                 this.scope.$emit('change', this.list);
-    //             })
-    //         }
-    //         return this.queryPromise;
-    //     }
-    // }
-    //
-    // add (data) {
-    //     this.Resource.save(data, (data) => {
-    //         this.list.push(data);
-    //         this.scope.$emit('change', this.list);
-    //     })
-    // }
-
-    // getItemPromise(id) {
-    //     if(this.queryPromise){
-    //         this.queryPromise.then(() =>)
-    //     }
-    // }
-
-    // delete (id) {
-    //     if(id && this.list.length){
-    //         var el = _.findWhere(this.list, {[this.idAtribute]: id });
-    //         el.$delete((data) => {
-    //             debugger;
-    //         });
-    //     }
-    // }
-
-    getResource(path, pr = {}){
-        var r = this.resource(path, pr.resource, this.pr);
-        return new CoreApiResource(path, pr, r, this.scope, this._q);
     }
 }

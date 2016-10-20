@@ -3,14 +3,15 @@ import GroupController from './group/group_controller'
 export default function ($stateProvider, $urlRouterProvider) {
 
     // $urlRouterProvider.when('/:groupID', '/:groupID/catalog');
-    // $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/');
 
     $stateProvider
         .state('Group', {
-            url: '/:groupID',
+            url: '/{groupID:string}',
             // abstract: true,
             resolve : {
                 user : function (ctUserService, $stateParams) {
+                    debugger;
                     return ctUserService.init($stateParams.groupID);
                 }
             },

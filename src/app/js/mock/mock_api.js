@@ -10,7 +10,9 @@ import {catalog} from './catalog'
 apiData['groups'] = groups;
 apiData['projects'] = projects;
 apiData['groups/demo/permissions'] = permissions;
+apiData['groups/admin/permissions'] = permissions;
 apiData['groups/demo/catalog/components'] = catalog;
+apiData['groups/admin/catalog/components'] = catalog;
 
 export default function (app) {
     app.config(function ($provide) {

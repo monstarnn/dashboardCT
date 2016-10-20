@@ -6,6 +6,7 @@ import  Nav from './nav/nav_module'
 import Templates from '../../core/templates'
 import Core from './../../core/module'
 import {ApiPath} from './../environment/environment_state'
+import EnvironmentService from './environment_service'
 
 export default angular
     .module('dashboard.environment',
@@ -21,4 +22,6 @@ export default angular
     .config(stateConfig)
     .component('mctEnv', layoutComponent)
     .value('ApiPath', ApiPath)
+    // .value('envGroup', undefined)
+    .service('envService' , EnvironmentService)
 ;
