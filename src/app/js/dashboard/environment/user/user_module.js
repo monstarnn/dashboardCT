@@ -6,7 +6,7 @@ export default angular
     .service('ctUserService', UserService)
     // .service('ApiService', ApiService)
     .factory('ApiResourcePermissions', function (ApiResource) {
-        debugger;
+        // debugger;
         // console.log($stateParams);
         var r = ApiResource.getResource('groups/:groupID/permissions'
             // , {

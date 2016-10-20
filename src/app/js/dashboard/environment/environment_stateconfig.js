@@ -2,16 +2,18 @@ import GroupController from './group/group_controller'
 
 export default function ($stateProvider, $urlRouterProvider) {
 
-    // $urlRouterProvider.when('/:groupID', '/:groupID/catalog');
-    $urlRouterProvider.otherwise('/');
-
+    $urlRouterProvider.otherwise(($injector, $location) => {
+        // alert('Could not find a state associated with url "'+$location.$$url+'"');
+        let $state = $injector.get('$state');
+        $state.go('GroupSelect');
+    });
+    
     $stateProvider
         .state('Group', {
-            url: '/{groupID:string}',
+            url: '/:groupID',
             // abstract: true,
             resolve : {
                 user : function (ctUserService, $stateParams) {
-                    debugger;
                     return ctUserService.init($stateParams.groupID);
                 }
             },
@@ -32,7 +34,6 @@ export default function ($stateProvider, $urlRouterProvider) {
             url: '^',
             resolve : {
                 groups : function (ctGroupService) {
-                    debugger;
                     return ctGroupService.init();
                 }
             },
@@ -48,5 +49,5 @@ export default function ($stateProvider, $urlRouterProvider) {
                 }
             }
 
-        })
+        });
 };

@@ -13,7 +13,6 @@ export class GroupService {
     }
 
     init(){
-        // debugger;
         if(!this.initDefer) {
             this.initDefer = this.getList();
             this.initDefer.then((res) => {
