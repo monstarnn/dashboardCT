@@ -79,8 +79,8 @@ gulp.task('build-es6-dashboard-mock', function () {
     var options = assign({}, config);
     // options.entryPoint = appDir + '/js/dashboardmock.js';
     options.entryPoint = appDir + '/js/dashboard/dashboard_mock_module.js';
-    options.bundleName = 'dashboardmock.js';
-    options.bundleNameMin = 'dashboardmock.min.js';
+    options.bundleName = 'mock.js';
+    options.bundleNameMin = 'mock.min.js';
     options.destPathName = destPathName + '/js';
     return bundler(options);
 });

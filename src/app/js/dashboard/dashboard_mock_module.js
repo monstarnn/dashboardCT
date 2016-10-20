@@ -1,8 +1,7 @@
-import dashboard from './dashboard_module'
 import mockApi from '../mock/mock_api'
 
-let dashboardMock = angular.module('dashboard.mock', ['ngMockE2E', dashboard.name]);
+let mock = angular.module('dashboard.mock', ['dashboard', 'ngMockE2E']);
 
-mockApi(dashboardMock);
+mockApi(mock);
 
-export default dashboardMock;
+export default mock;

@@ -18,8 +18,8 @@ gulp.task('injectJs', function () {
 
 	var dashboardJs = [destPathName + '/js/dashboard.js'];
 	dashboardJs.injectPlaceholder = 'dashboard';
-	var dashboardMockJs = [destPathName + '/js/dashboardmock.js'];
-	dashboardMockJs.injectPlaceholder = 'dashboardmock';
+	var dashboardMockJs = [destPathName + '/js/mock.js'];
+	dashboardMockJs.injectPlaceholder = 'mock';
 	var loginJs = [destPathName + '/js/login.js'];
 	loginJs.injectPlaceholder = 'login';
 
