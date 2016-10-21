@@ -5,9 +5,9 @@
 
 export default class EnvironmentService{
     constructor (ctUserService) {
-        debugger
+        // debugger
         this.userService = ctUserService;
-        /* current group chenjet userSrvice if group/permission OK */
+        /* current group changes userService if group/permissions OK */
         this.groupID;
     }
 };

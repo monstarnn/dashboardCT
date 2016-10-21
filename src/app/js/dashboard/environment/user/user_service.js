@@ -25,12 +25,13 @@ export class UserService {
             this.resources[groupId] = this.resource.query({groupID : groupId}, true)
                 .then((data) => {
                     this.allPermissions[groupId] = data;
-                    this.permissions = this.allPermissions[groupId];
                     this.groupID = groupId;
+                    this.permissions = this.allPermissions[groupId];
                 })
                 .catch(this.reject.bind(this));
         }
-        debugger;
+        // debugger;
+        this.groupID = groupId;
         this.permissions = this.allPermissions[groupId];
         return this.resources[groupId];
     }
