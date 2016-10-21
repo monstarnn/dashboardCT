@@ -2,21 +2,16 @@ export class UserMenuController {
     constructor($scope, ctGroupService, envService){
         // debugger;
         this.groupService = ctGroupService;
-        this.scope = $scope;
+        $scope.groupId;
         $scope.groups = [];
         this.groupsLoaded = false;
-
-        $scope.$watch(
-            () => {
-                return envService.userService.permissions;
-            }
-            ,
-            (r) => {
-                $scope.permissions = envService.userService.permissions;
-            });
-
-
-        // window.perms = $scope.permissions = envService.userService.permissions;
+        $scope.$watch(() => {
+            return envService.userService.permissions;
+        }, (permissions) => {
+            $scope.permissions = permissions;
+            $scope.menuItems = this.menuItems(permissions);
+            $scope.groupId = envService.userService.groupID;
+        });
         $scope.readGroupsIfNeeded = (open) => {
             if(open && !this.groupsLoaded) {
                 this.groupsLoaded = true;
@@ -25,6 +20,13 @@ export class UserMenuController {
                 });
             }
         };
+    }
+    menuItems(permissions) {
+        let menu = [];
+        if(permissions.indexOf('catalog') != -1) menu.push({Title : 'Catalog', State : 'Group.Catalog'});
+        if(permissions.indexOf('clusters') != -1) menu.push({Title : 'Clusters', State : 'Clusters'});
+        // if(permissions.indexOf('demo') != -1) menu.push({Title : 'Demo'});
+        return menu;
     }
 }
 
