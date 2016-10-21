@@ -1,0 +1,16 @@
+<ul class="nav navbar-nav navbar-right">
+
+    <li ng-repeat="p in permissions">{{p}}</li>
+
+<li class="btn-group" uib-dropdown on-toggle="readGroupsIfNeeded(open)">
+    <a href="#" uib-dropdown-toggle>
+        User <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
+        <li role="menuitem" ng-repeat="g in groups"><a ui-sref="Group({groupID : g.ID})">{{g.Name}}</a></li>
+        <li class="divider"></li>
+        <li role="menuitem"><a href="#">Logout</a></li>
+    </ul>
+</li>
+
+</ul>

@@ -5,7 +5,7 @@ vAPI="v0.1"
 echo "Starting local proxy: $DIR"
 API_ADDR=`ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p' | tail -1`
 echo "API address: $API_ADDR"
-rm -R $DIR/dist
+#rm -R $DIR/dist
 mkdir $DIR/dist
 mkdir $DIR/nginx-local/build
 cp -f $DIR/nginx-local/mime.types $DIR/nginx-local/build/mime.types

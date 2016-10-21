@@ -9,6 +9,7 @@ import Clusters from './clusters/clusters_module'
 var dashboard = angular
     .module('dashboard', [
         'ui.router',
+        'ui.bootstrap',
         Templates.name,
         Environment.name,
         Catalog.name,

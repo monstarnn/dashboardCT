@@ -6,13 +6,13 @@ export class UserService {
         this.state = $state;
         this.q = $q;
         this.resources = {};
-        this.permissions = {};
+        this.allPermissions = {};
+        this.permissions = [];
         this.groupID;
         this.rejpro;
     }
 
     init (groupId) {
-        let permissions = this.permissions;
         if(!groupId || !groupId.length) {
             if(!this.rejpro) {
                 let reject = this.q.defer();
@@ -20,15 +20,18 @@ export class UserService {
                 this.rejpro = reject.promise.catch(this.reject.bind(this));
             }
             return this.rejpro;
-        } else
-        if(!this.resources[groupId]) {
+        } else if(!this.resources[groupId]) {
+            this.allPermissions[groupId] = [];
             this.resources[groupId] = this.resource.query({groupID : groupId}, true)
                 .then((data) => {
-                    permissions[groupId] = data;
+                    this.allPermissions[groupId] = data;
+                    this.permissions = this.allPermissions[groupId];
                     this.groupID = groupId;
                 })
                 .catch(this.reject.bind(this));
         }
+        debugger;
+        this.permissions = this.allPermissions[groupId];
         return this.resources[groupId];
     }
     
