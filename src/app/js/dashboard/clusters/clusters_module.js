@@ -4,8 +4,9 @@
 
 import ClustersConfig from './clusters_stateconfig'
 import ClustersService from './clusters_service'
-// import Templates from '../../core/templates'
 import ENV from '../environment/environment_module'
+import {ClustersListComponent} from './clusters_list_component'
+import {ClustersListItemComponent} from './clusters_list_item_component'
 
 export default angular
     .module('dashboart.clusres', [
@@ -14,5 +15,8 @@ export default angular
         // Templates.name
     ])
     .config( ClustersConfig )
-    .service('ClustersService', ClustersService);
+    .service('ClustersService', ClustersService)
+    .component('ctClustersList', ClustersListComponent)
+    .component('ctClustersListItem', ClustersListItemComponent)
+;
 

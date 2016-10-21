@@ -5,11 +5,7 @@
 
 export class ContentHeaderTitleController {
     constructor (/*$state*/) {
-        // this.state = $state;
-        /** from html attr */
         this.stateTree;
-        // console.log('ContentHeaderTitleController', this.stateTree);
-        // debugger
     }
 }
 

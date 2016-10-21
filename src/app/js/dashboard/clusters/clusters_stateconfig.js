@@ -10,10 +10,17 @@ export  default function ($stateProvider, $urlRouterProvider) {
         .state('Clusters', {
             parent: "Group",
             url: '/clusters',
+            resolve : {
+                clustersList : function (ClustersService, $q) {
+                    return ClustersService.List();
+                }
+            },
             views: {
                 "": {
-                    template: `<div class="btn" ng-click="$ctrl.add()">add</div>
-                               <h1>Clusters</h1><vid ui-view="action"></vid>`,
+                    template: `<ct-clusters-list 
+                                    clusters-list="$ctrl.clustersList" 
+                                    clusters-service="$ctrl.clustersService"
+                                ></ct-clusters-list>`,
                     controller: ClusterController,
                     controllerAs: '$ctrl'
                 },

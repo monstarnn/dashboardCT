@@ -3,7 +3,14 @@
  */
 
 export default class ClustersController {
-    constructor (ClustersService) {
-        debugger;
+    /**
+     *
+     * @param clustersList // from state resolve
+     * @param ClustersService
+     */
+    constructor (clustersList, ClustersService) {
+
+        this.clustersList = clustersList;
+        this.clustersService = ClustersService;
     }
 }
