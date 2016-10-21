@@ -19,7 +19,7 @@ export default function ($stateProvider, $urlRouterProvider) {
             },
             views: {
                 "": {
-                    template: '<div ui-view>Group</div>',
+                    template: '<div ui-view="topTitle"></div><div ui-view>Group</div>',
                     controller: function ($stateParams, $rootScope, ctGroupService) {
                         console.log($stateParams);
                         // debugger;

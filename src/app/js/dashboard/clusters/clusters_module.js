@@ -4,7 +4,7 @@
 
 import ClustersConfig from './clusters_stateconfig'
 import ClustersService from './clusters_service'
-import Templates from '../../core/templates'
+// import Templates from '../../core/templates'
 import ENV from '../environment/environment_module'
 
 export default angular
@@ -13,5 +13,6 @@ export default angular
         // 'ui.router',
         // Templates.name
     ])
-    .config(ClustersConfig )
+    .config( ClustersConfig )
     .service('ClustersService', ClustersService);
+

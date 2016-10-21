@@ -3,8 +3,8 @@ import Catalog from './catalog/catalog_module'
 import Projects from './projects/projects_module'
 import ProjectDetail from './project_detail/project_detail_module'
 import Templates from '../core/templates'
-
 import Clusters from './clusters/clusters_module'
+import CommonLayout from '../common/layout/layout_module'
 
 var dashboard = angular
     .module('dashboard', [
@@ -15,7 +15,8 @@ var dashboard = angular
         Catalog.name,
         Projects.name,
         ProjectDetail.name,
-        Clusters.name
+        Clusters.name,
+        CommonLayout.name
     ]);
 
 export default dashboard;

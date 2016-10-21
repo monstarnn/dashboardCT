@@ -30,7 +30,7 @@ class CoreApiResource {
                         this.scope.$emit('change', this.list);
                     }).bind(this)
                 ).catch(() => {
-                    debugger/*!!!!!!!!!!!!!!!!!!!!!!!*/
+                    // debugger/*!!!!!!!!!!!!!!!!!!!!!!!*/
                     this.queryPromise = null;
                 });
             }

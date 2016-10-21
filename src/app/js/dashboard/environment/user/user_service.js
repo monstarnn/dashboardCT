@@ -30,7 +30,6 @@ export class UserService {
                 })
                 .catch(this.reject.bind(this));
         }
-        debugger;
         this.permissions = this.allPermissions[groupId];
         return this.resources[groupId];
     }

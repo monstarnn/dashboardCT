@@ -12,7 +12,6 @@ export class UserMenuController {
             }
             ,
             (r) => {
-                debugger;
                 $scope.permissions = envService.userService.permissions;
             });
 

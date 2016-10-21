@@ -5,6 +5,7 @@ import User from './user/user_module'
 import  Nav from './nav/nav_module'
 import Templates from '../../core/templates'
 import Core from './../../core/module'
+import State from './state/state_module'
 import {ApiPath} from './../environment/environment_state'
 import EnvironmentService from './environment_service'
 
@@ -16,7 +17,8 @@ export default angular
             Group.name,
             User.name,
             Nav.name,
-            Core.name
+            Core.name,
+            State.name
         ]
     )
     .config(stateConfig)
