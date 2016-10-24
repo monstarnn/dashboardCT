@@ -1,5 +1,5 @@
 export class UserMenuController {
-    constructor($scope, ctGroupService, envService, $state, $stateParams, $timeout){
+    constructor($scope, ctGroupService, envService, $state, $stateParams, $timeout, ApiService){
         // debugger;
         this.groupService = ctGroupService;
         $scope.groupId;
@@ -47,6 +47,12 @@ export class UserMenuController {
             let params = $stateParams;
             params.groupId = groupId;
             $state.go($state.current.name, params);
+        };
+        
+        $scope.logout = () => {
+            ApiService.postForm('auth/logout').then(() => {
+                location.reload();
+            })
         };
 
     }
