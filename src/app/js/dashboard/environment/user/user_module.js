@@ -8,7 +8,7 @@ export default angular
     .factory('ApiResourcePermissions', function (ApiResource) {
         // debugger;
         // console.log($stateParams);
-        var r = ApiResource.getResource('groups/:groupID/permissions'
+        var r = ApiResource.getResource('groups/:groupId/permissions'
             // , {
             //     resource : { id : "@ID" }
             // }

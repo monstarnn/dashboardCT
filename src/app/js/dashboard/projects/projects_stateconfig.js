@@ -4,8 +4,8 @@
 import ProjectController from './projects_controller'
 export  default function ($stateProvider, $urlRouterProvider) {
     $stateProvider
-        .state('Projects', {
-            parent: "Group",
+        .state('group.projects', {
+            parent: "group",
             url: '/projects',
             views: {
                 "": {

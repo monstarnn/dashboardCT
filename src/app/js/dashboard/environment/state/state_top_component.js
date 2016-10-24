@@ -3,9 +3,8 @@
  */
 
 
-export class StateTopConstrucotr {
+export class StateTopConstructor {
     constructor ($state) {
-        debugger
         this.state = $state;
     }
     $onInit () {
@@ -30,9 +29,9 @@ export class StateTopConstrucotr {
     //     this.loading = false;
     //     this.showLoadingSpinner = false;
     // }
-};
+}
 
 export const StateTopComponent = {
     template : "<div>Top</div>",
-    controller : StateTopConstrucotr
+    controller : StateTopConstructor
 };

@@ -7,8 +7,9 @@ import ProjectDetailController from './project_detail_controller';
 export  default function ($stateProvider) {
 
     $stateProvider
-        .state('ProjectDetail', {
-            url : '/:groupID/projects/:projectID',
+        .state('group.project.detail', {
+            url : '/projects/:projectId',
+            parent: "group",
             // resolve : {
             //     projectDetail : function (ApiResourceProjects, $stateParams, $q) {
             //         debugger

@@ -3,34 +3,34 @@ import GroupController from './group/group_controller'
 export default function ($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.otherwise(($injector, $location) => {
-        // alert('Could not find a state associated with url "'+$location.$$url+'"');
+        console.log('Could not find a state associated with url "'+$location.$$url+'"');
         let $state = $injector.get('$state');
-        $state.go('GroupSelect');
+        $state.go('group.select');
     });
     
     $stateProvider
-        .state('Group', {
-            url: '/:groupID',
+        .state('group', {
+            url: '/:groupId',
             // abstract: true,
             resolve : {
                 user : function (ctUserService, $stateParams) {
-                    return ctUserService.init($stateParams.groupID);
+                    return ctUserService.init($stateParams.groupId);
                 }
             },
             views: {
                 "": {
                     template: '<div ui-view="topTitle"></div><div ui-view>Group</div>',
-                    controller: function ($stateParams, $rootScope, ctGroupService) {
+                    controller: function ($stateParams, $scope, $rootScope, ctGroupService) {
                         console.log($stateParams);
                         // debugger;
                         console.info("Start ENV view controller", this);
-                        // $rootScope.envGroup = $stateParams.groupID;
+                        // $rootScope.envGroup = $stateParams.groupId;
                         // $rootScope.$emit('envGroupComplite', $rootScope.envGroup);
                     }
                 }
             }
         })
-        .state('GroupSelect', {
+        .state('group.select', {
             url: '^',
             resolve : {
                 groups : function (ctGroupService) {

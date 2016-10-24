@@ -8,7 +8,7 @@ export class UserService {
         this.resources = {};
         this.allPermissions = {};
         this.permissions = [];
-        this.groupID;
+        this.groupId;
         this.rejpro;
     }
 
@@ -22,23 +22,23 @@ export class UserService {
             return this.rejpro;
         } else if(!this.resources[groupId]) {
             this.allPermissions[groupId] = [];
-            this.resources[groupId] = this.resource.query({groupID : groupId}, true)
+            this.resources[groupId] = this.resource.query({groupId : groupId}, true)
                 .then((data) => {
                     this.allPermissions[groupId] = data;
-                    this.groupID = groupId;
+                    this.groupId = groupId;
                     this.permissions = this.allPermissions[groupId];
                 })
                 .catch(this.reject.bind(this));
         }
         // debugger;
-        this.groupID = groupId;
+        this.groupId = groupId;
         this.permissions = this.allPermissions[groupId];
         return this.resources[groupId];
     }
     
     reject() {
-        this.groupID = null;
-        this.state.go('GroupSelect');
+        this.groupId = null;
+        this.state.go('group.select');
     }
     
 }

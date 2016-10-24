@@ -1,6 +1,3 @@
-
-
-
 export class LayoutController {
     /**
      * @param {!ui.router.$state} $state

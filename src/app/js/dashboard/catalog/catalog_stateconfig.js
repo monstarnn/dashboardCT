@@ -6,9 +6,9 @@ import CatalogController from './catalog_controller'
 export default function ($stateProvider) {
 
     $stateProvider
-        .state ('Group.Catalog', {
+        .state ('group.catalog', {
                 url : "/catalog",
-                parent : 'Group',
+                parent : 'group',
                 resolve: {
                     'catalogList': resolveApiResourceCatalog,
                 },

@@ -8,6 +8,6 @@ export default class EnvironmentService{
         // debugger
         this.userService = ctUserService;
         /* current group changes userService if group/permissions OK */
-        this.groupID;
+        this.groupId;
     }
 };

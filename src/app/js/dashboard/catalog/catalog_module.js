@@ -13,5 +13,5 @@ export default angular
 
 function getApiResourceCatalog (ApiResource, $stateParams) {
     debugger;
-    return ApiResource.resource(`groups/${$stateParams.groupID}/catalog/components`);
+    return ApiResource.resource(`groups/${$stateParams.groupId}/catalog/components`);
 }

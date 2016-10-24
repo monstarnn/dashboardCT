@@ -11,7 +11,7 @@ export default class ClusterService {
         this.scope = $rootScope;
         this.scope.$watch(
              () => {
-                return this.userService.groupID;
+                return this.userService.groupId;
             }
             ,
             (r) => {
@@ -22,10 +22,10 @@ export default class ClusterService {
 
 
     initResource () {
-        let groupID = this.userService.groupID;
-        if(groupID){
+        let groupId = this.userService.groupId;
+        if(groupId){
             var query = (this.resource && this.resource.queryPromise) ? true : false;
-            this.resource = this.apiResource.getResource(('groups/:groupID/clusters/:clusterID'), {resource : {clusterID : "@ID", groupID : groupID}});
+            this.resource = this.apiResource.getResource(('groups/:groupId/clusters/:clusterID'), {resource : {clusterID : "@ID", groupId : groupId}});
             if(query) this.resource.query({}, true);
         }
         else

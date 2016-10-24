@@ -7,8 +7,8 @@ import ClusterController from './clusters_controller'
 
 export  default function ($stateProvider, $urlRouterProvider) {
     $stateProvider
-        .state('Clusters', {
-            parent: "Group",
+        .state('group.clusters', {
+            parent: "group",
             url: '/clusters',
             resolve : {
                 clustersList : function (ClustersService, $q) {
@@ -32,16 +32,18 @@ export  default function ($stateProvider, $urlRouterProvider) {
                                 </layout-content-header>`,
                     controller: function () {
                         this.stateTree = [{title : 'Clusters', active : true}];
-                        this.stateActions = [{title : 'Add cluster', link:'Clusters.Add'}, {title : 'Create cluster', link:'Clusters.Create'}]
+                        this.stateActions = [
+                            {title : 'Add cluster', link:'group.clusters.add'},
+                            {title : 'Create cluster', link:'group.clusters.create'}
+                        ];
                     },
                     controllerAs: '$ctrl'
                 }
 
             }
         })
-        .state('Clusters.Add', {
+        .state('group.clusters.add', {
             url: '/add',
-
             views: {
                 "action" : {
                     template:
@@ -55,7 +57,7 @@ export  default function ($stateProvider, $urlRouterProvider) {
                 }
             }
         })
-        // .state('Clusters.Create', {
+        // .state('group.clusters.create', {
         //     url: '/create',
         //     views: {
         //         "action" : {
@@ -63,4 +65,5 @@ export  default function ($stateProvider, $urlRouterProvider) {
         //         }
         //     }
         // })
+        ;
 }

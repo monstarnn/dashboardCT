@@ -1,3 +1,3 @@
 <li ng-repeat="i in $ctrl.groupList">
-    <a ui-sref="Group({groupID : i.ID})">{{i.Name}}{{i.Description ? (" ("+i.Description+")") : "d"}}</a>
+    <a ui-sref="group({groupId : i.ID})">{{i.Name}}{{i.Description ? (" ("+i.Description+")") : "d"}}</a>
 </li>

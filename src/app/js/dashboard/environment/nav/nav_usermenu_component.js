@@ -1,17 +1,29 @@
 export class UserMenuController {
-    constructor($scope, ctGroupService, envService){
+    constructor($scope, ctGroupService, envService, $state, $stateParams){
         // debugger;
         this.groupService = ctGroupService;
         $scope.groupId;
         $scope.groups = [];
+        $scope.state;
+        $scope.stateParams;
         this.groupsLoaded = false;
+
         $scope.$watch(() => {
             return envService.userService.permissions;
         }, (permissions) => {
             $scope.permissions = permissions;
-            $scope.menuItems = this.menuItems(permissions);
-            $scope.groupId = envService.userService.groupID;
+            // $scope.menuItems = this.menuItems(permissions);
+            $scope.groupId = envService.userService.groupId;
         });
+
+        $scope.$watch(() => {
+            return $state.current;
+        }, (curState) => {
+            debugger;
+            $scope.state = curState.name;
+            $scope.stateParams = $stateParams;
+        });
+
         $scope.readGroupsIfNeeded = (open) => {
             if(open && !this.groupsLoaded) {
                 this.groupsLoaded = true;
@@ -20,14 +32,31 @@ export class UserMenuController {
                 });
             }
         };
+        
+        $scope.params = (groupId) => {
+            let ret = $scope.stateParams;
+            ret.groupId = groupId;
+            return ret;
+        };
+
+        $scope.switchToGroup = (groupId) => {
+            let params = $scope.stateParams;
+            params.groupId = groupId;
+            debugger;
+            $state.go(this.state, params);
+        }
+
+        ;
+
     }
-    menuItems(permissions) {
-        let menu = [];
-        if(permissions.indexOf('catalog') != -1) menu.push({Title : 'Catalog', State : 'Group.Catalog'});
-        if(permissions.indexOf('clusters') != -1) menu.push({Title : 'Clusters', State : 'Clusters'});
-        // if(permissions.indexOf('demo') != -1) menu.push({Title : 'Demo'});
-        return menu;
-    }
+    // menuItems(permissions) {
+    //     // debugger;
+    //     let menu = [];
+    //     if(permissions.indexOf('catalog') != -1) menu.push({Title : 'Catalog', State : 'group.catalog'});
+    //     if(permissions.indexOf('clusters') != -1) menu.push({Title : 'Clusters', State : 'group.clusters'});
+    //     // if(permissions.indexOf('demo') != -1) menu.push({Title : 'Demo'});
+    //     return menu;
+    // }
 }
 
 export const UsermenuComponent = {

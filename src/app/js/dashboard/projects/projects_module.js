@@ -18,7 +18,7 @@ export default angular
     // .service('ApiProjectsService', ApiProjectsService)
 
     .factory('ApiResourceProjects', function (ApiResource, $resource) {
-            var r = ApiResource.getResource(':groupID/projects/:id');
+            var r = ApiResource.getResource(':groupId/projects/:id');
             r.query();
             return  r;
         }

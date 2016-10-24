@@ -15,6 +15,6 @@ export class ToolbarController {
 export const ToolbarComponent = {
     controller : ToolbarController,
     template : function ($templateCache) {
-        return $templateCache.get('dashboard/environment/nav/toolbar.html');
+        return $templateCache.get('dashboard/environment/nav/nav_toolbar.html');
     }
 };
