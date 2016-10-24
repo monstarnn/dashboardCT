@@ -40,8 +40,8 @@ export class ClastersEditController {
                 (resource) => {
                     resource.save( cluster )
                         .then((r) => {
-                            debugger;
-                            resource.getById({ clusterID : r.ID });
+                            resource.getById(r.ID , true).then((r) => {
+                            });
                         })
                 }
             )

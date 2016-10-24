@@ -84,11 +84,14 @@ class CoreApiResource {
         var defer = this._q.defer();
         var promise = defer.$promise;
         var _this = this;
+        debugger
         if(id){
             var el =_.findWhere(this.list, {[this.idAttribute] : id });
             if( !el || (el && !el.$promise) || update ){
+                var rID = this.resourceID || 'id';
                 var getDefer = this.Resource.get(
-                    {id : id}
+                    {[rID] : id}
+                    // {}
                     , (r) => {
                         if(el)
                             el = r;

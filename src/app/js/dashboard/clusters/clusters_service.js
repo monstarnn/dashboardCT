@@ -10,26 +10,24 @@ export default class ClusterService {
         this.recource;
         this.scope = $rootScope;
         this.scope.$watch(
-             () => {
-                return this.userService.groupId;
-            }
-            ,
-            (r) => {
-                this.initResource();
-            });
+             () => { return this.userService.groupId; },
+            (groupId) => { this.initResource(groupId); }
+        );
 
     }
 
-
-    initResource () {
-        let groupId = this.userService.groupId;
+    initResource (groupId) {
+        debugger;
+        // let groupId = this.userService.groupId;
         if(groupId){
             var query = (this.resource && this.resource.queryPromise) ? true : false;
-            this.resource = this.apiResource.getResource(('groups/:groupId/clusters/:clusterID'), {resource : {clusterID : "@ID", groupId : groupId}});
+            this.resource = this.apiResource.getResource(('groups/:groupID/clusters/:clusterID'), {resourceID : "clusterID", resource : {clusterID : "@ID", groupID : groupId}});
             if(query) this.resource.query({}, true);
         }
-        else
+        else {
             this.resource = null;
+            console.error('ClusterService -> initResource groupId is undefined');
+        }
         return this.resource;
     }
 
@@ -48,6 +46,7 @@ export default class ClusterService {
 
     List () {
         var defer = this._q.defer();
+        debugger;
         this.Resource
             .then((r) => {
                 debugger
