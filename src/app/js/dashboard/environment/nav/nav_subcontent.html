@@ -1,12 +1,12 @@
 <ul class="nav nav-sidebar">
     <li ui-sref-active="active" ng-show="$ctrl.hasPermission('catalog')">
-        <a ui-sref="group.catalog({groupId : groupId})">Catalog</a>
+        <a ui-sref="groupCatalog({groupId : groupId})">Catalog</a>
     </li>
     <li ui-sref-active="active">
-        <a ui-sref="group.projects({groupId : groupId})">Projects</a>
+        <a ui-sref="groupProjects({groupId : groupId})">Projects</a>
     </li>
     <li ui-sref-active="active" ng-show="$ctrl.hasPermission('clusters')">
-        <a ui-sref="group.clusters({groupId : groupId})">Clusters</a>
+        <a ui-sref="groupClusters({groupId : groupId})">Clusters</a>
     </li>
 </ul>
 <mct-projects-menu-list></mct-projects-menu-list>

@@ -3,9 +3,10 @@ import GroupController from './group/group_controller'
 export default function ($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.otherwise(($injector, $location) => {
+        debugger;
         console.log('Could not find a state associated with url "'+$location.$$url+'"');
         let $state = $injector.get('$state');
-        $state.go('group.select');
+        $state.go('groupSelect');
     });
     
     $stateProvider
@@ -14,6 +15,7 @@ export default function ($stateProvider, $urlRouterProvider) {
             // abstract: true,
             resolve : {
                 user : function (ctUserService, $stateParams) {
+                    debugger;
                     return ctUserService.init($stateParams.groupId);
                 }
             },
@@ -30,10 +32,11 @@ export default function ($stateProvider, $urlRouterProvider) {
                 }
             }
         })
-        .state('group.select', {
+        .state('groupSelect', {
             url: '^',
             resolve : {
                 groups : function (ctGroupService) {
+                    debugger;
                     return ctGroupService.init();
                 }
             },

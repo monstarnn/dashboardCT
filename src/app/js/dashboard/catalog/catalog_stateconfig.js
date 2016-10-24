@@ -6,7 +6,7 @@ import CatalogController from './catalog_controller'
 export default function ($stateProvider) {
 
     $stateProvider
-        .state ('group.catalog', {
+        .state ('groupCatalog', {
                 url : "/catalog",
                 parent : 'group',
                 resolve: {

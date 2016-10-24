@@ -1,5 +1,5 @@
 export class UserMenuController {
-    constructor($scope, ctGroupService, envService, $state, $stateParams){
+    constructor($scope, ctGroupService, envService, $state, $stateParams, $timeout){
         // debugger;
         this.groupService = ctGroupService;
         $scope.groupId;
@@ -7,6 +7,10 @@ export class UserMenuController {
         $scope.state;
         $scope.stateParams;
         this.groupsLoaded = false;
+        
+        this.to = $timeout;
+        
+        window._state_ = this.state_ = $state;
 
         $scope.$watch(() => {
             return envService.userService.permissions;
@@ -16,13 +20,13 @@ export class UserMenuController {
             $scope.groupId = envService.userService.groupId;
         });
 
-        $scope.$watch(() => {
-            return $state.current;
-        }, (curState) => {
-            debugger;
-            $scope.state = curState.name;
-            $scope.stateParams = $stateParams;
-        });
+        // $scope.$watch(() => {
+        //     return $state.current;
+        // }, (curState) => {
+        //     debugger;
+        //     $scope.state = curState.name;
+        //     $scope.stateParams = $stateParams;
+        // });
 
         $scope.readGroupsIfNeeded = (open) => {
             if(open && !this.groupsLoaded) {
@@ -40,13 +44,10 @@ export class UserMenuController {
         };
 
         $scope.switchToGroup = (groupId) => {
-            let params = $scope.stateParams;
+            let params = $stateParams;
             params.groupId = groupId;
-            debugger;
-            $state.go(this.state, params);
-        }
-
-        ;
+            $state.go($state.current.name, params);
+        };
 
     }
     // menuItems(permissions) {

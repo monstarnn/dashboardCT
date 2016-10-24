@@ -38,7 +38,7 @@ export class UserService {
     
     reject() {
         this.groupId = null;
-        this.state.go('group.select');
+        this.state.go('groupSelect');
     }
     
 }

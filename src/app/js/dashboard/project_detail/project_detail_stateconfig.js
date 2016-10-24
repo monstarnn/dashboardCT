@@ -7,7 +7,7 @@ import ProjectDetailController from './project_detail_controller';
 export  default function ($stateProvider) {
 
     $stateProvider
-        .state('group.project.detail', {
+        .state('groupProjectDetail', {
             url : '/projects/:projectId',
             parent: "group",
             // resolve : {
