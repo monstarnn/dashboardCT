@@ -7,6 +7,7 @@ import ClustersService from './clusters_service'
 import ENV from '../environment/environment_module'
 import {ClustersListComponent} from './clusters_list_component'
 import {ClustersListItemComponent} from './clusters_list_item_component'
+import {ClastersEditComponent} from './clusters_edit_component'
 
 export default angular
     .module('dashboart.clusres', [
@@ -18,5 +19,6 @@ export default angular
     .service('ClustersService', ClustersService)
     .component('ctClustersList', ClustersListComponent)
     .component('ctClustersListItem', ClustersListItemComponent)
+    .component('ctClstersEdit', ClastersEditComponent)
 ;
 

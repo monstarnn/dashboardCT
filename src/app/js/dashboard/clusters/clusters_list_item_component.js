@@ -6,7 +6,6 @@ export class ClustersListItemController {
     constructor () {
         this.clusterInfo; // from html scope
         this.clustersService; // from html scope
-        debugger;
     }
 };
 

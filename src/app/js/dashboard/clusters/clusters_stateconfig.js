@@ -17,7 +17,8 @@ export  default function ($stateProvider, $urlRouterProvider) {
             },
             views: {
                 "": {
-                    template: `<ct-clusters-list 
+                    template: `<div ui-view="action"></div>
+                                <ct-clusters-list 
                                     clusters-list="$ctrl.clustersList" 
                                     clusters-service="$ctrl.clustersService"
                                 ></ct-clusters-list>`,
@@ -40,18 +41,26 @@ export  default function ($stateProvider, $urlRouterProvider) {
         })
         .state('Clusters.Add', {
             url: '/add',
+
             views: {
                 "action" : {
-                    template: "<div>Add Cluster</div>"
+                    template:
+                            `<div>Add Cluster</div>
+                                <ct-clsters-edit clusters-service="$ctrl.clustersService"></ct-clsters-edit>
+                            `,
+                        controller: function (ClustersService) {
+                            this.clustersService = ClustersService;
+                        },
+                        controllerAs: '$ctrl'
                 }
             }
         })
-        .state('Clusters.Create', {
-            url: '/create',
-            views: {
-                "action" : {
-                    template: "<div>Create Cluster</div>"
-                }
-            }
-        })
+        // .state('Clusters.Create', {
+        //     url: '/create',
+        //     views: {
+        //         "action" : {
+        //             template: "<div>Create Cluster</div>"
+        //         }
+        //     }
+        // })
 }
